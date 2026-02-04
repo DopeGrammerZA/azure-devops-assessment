@@ -1,0 +1,25 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '20.x'
+
+- script: |
+    npm ci
+    zip -r app.zip . -x '*.git*'
+  
+- task: CmdLine@2
+  inputs:
+    script: |
+      # Deploy using REST API with publish profile
+      # First, you'd need to get publish profile from App Service
+      # This is a placeholder - we need publish profile XML
+      echo "Manual deployment step"
+      echo "1. Go to App Service in Azure Portal"
+      echo "2. Click 'Get publish profile'"
+      echo "3. Use that file for deployment"
